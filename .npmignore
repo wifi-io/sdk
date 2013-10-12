@@ -1,0 +1,9 @@
+*.sublime*
+*.DS_*
+node_*
+thumb
+psd
+*.backup
+backup.*
+*.log
+sftp-*

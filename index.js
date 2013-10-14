@@ -22,7 +22,7 @@ var Wifi = function(params) {
 Wifi.prototype.token = function(callback) {
     var self = this;
     self.user.signin({
-        form: self.account
+        body: self.account
     },function(err, result){
         if (result.body && result.body.token && result.body.token != '') self.token = result.body.token;
         callback(err, result.body);

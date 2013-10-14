@@ -50,7 +50,7 @@ wifi.token(function(err,result){
 ````javascript
 // 登录
 wifi.user.signin({
-    form: {
+    body: {
         username: '123',
         password: '123'
     }
@@ -60,7 +60,7 @@ wifi.user.signin({
 
 // 登出
 wifi.user.signout({
-    form: {
+    body: {
         token: 123
     }
 },function(err,result){
@@ -74,19 +74,23 @@ wifi.user.signout({
 ````javascript
 // 获取该用户下的设备
 wifi.devices.list({
-    token: 123
-    status: 0 , // 根据设备在线状态查询，-1:不在线，0:全部，1:在线，默认为全部,
-    page: 1, // 分页页码，默认为1
-    pagesize: 10 // 分页大小，默认每页10条，如果pagesize为0，则返回全量数据
+    body: {
+        token: 123
+        status: 0 , // 根据设备在线状态查询，-1:不在线，0:全部，1:在线，默认为全部,
+        page: 1, // 分页页码，默认为1
+        pagesize: 10 // 分页大小，默认每页10条，如果pagesize为0，则返回全量数据
+    }
 },function(err,result){
     console.log(result.body) 
 });
 
 // 向某个设备传输执行命令
 wifi.device.exec({
-    did: 123, // device id 目标设备的设备id
-    method: 'dht11.read', // 要执行的方法名称,在这个例子里读取温湿度传感器数据
-    params: {} // 需要传递的参数
+    body: {
+        did: 123, // device id 目标设备的设备id
+        method: 'dht11.read', // 要执行的方法名称,在这个例子里读取温湿度传感器数据
+        params: {} // 需要传递的参数
+    }
 },function(err,result){
     console.log(result.body);
 });
@@ -96,28 +100,34 @@ wifi.device.exec({
 
 ````javascript
 wifi.data.find({
-    tags: '123', // device id 目标设备的设备id
-    starttime: 0,
-    endtime: 100,
-    filter: '(3,9]',
-    simplify: false,
-    page: 1,
-    pagesize: 10,
-    method: 'reboot', // 要执行的方法名称
-    params: {} // 需要传递的参数
+    body: {
+        tags: '123', // device id 目标设备的设备id
+        starttime: 0,
+        endtime: 100,
+        filter: '(3,9]',
+        simplify: false,
+        page: 1,
+        pagesize: 10,
+        method: 'reboot', // 要执行的方法名称
+        params: {} // 需要传递的参数
+    }
 },function(err,result){
     console.log(result);
 });
 
 wifi.data.findByKey({
-    key: '123', // 要查询的数据的key
+    body: {
+        key: '123', // 要查询的数据的key
+    }
 },function(err,result){
     console.log(result);
 });
 
 wifi.data.insert({
-    tags: '123', // 数据的标签，用于标识数据的用途，便于查询
-    value: 123 , // 数据内容（数值型）
+    body: {
+        tags: '123', // 数据的标签，用于标识数据的用途，便于查询
+        value: 123 , // 数据内容（数值型）
+    }
 },function(err,result){
     console.log(result);
 });

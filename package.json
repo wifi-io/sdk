@@ -5,23 +5,20 @@
   "main": "index.js",
   "author": "turing",
   "license": "MIT",
-  "bin": {
-    "wifi": "./bin/cli"
-  },
   "scripts": {
     "start": "node server.js",
     "test": "./node_modules/mocha/bin/mocha ./test/test.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/turingou/wifi.io.git"
+    "url": "https://github.com/wifi-io/sdk.git"
   },
   "keywords": [
     "wifi.io",
     "wifi"
   ],
   "bugs": {
-    "url": "https://github.com/turingou/wifi.io/issues"
+    "url": "https://github.com/wifi-io/sdk/issues"
   },
   "dependencies": {
     "sdk":"*"

@@ -1,8 +1,13 @@
 {
   "name": "wifi",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "the sdk and package manager of wifi.io based on Node.js",
   "main": "index.js",
+  "author": "turing",
+  "license": "MIT",
+  "bin": {
+    "wifi": "./bin/cli"
+  },
   "scripts": {
     "start": "node server.js",
     "test": "./node_modules/mocha/bin/mocha ./test/test.js"
@@ -11,8 +16,6 @@
     "type": "git",
     "url": "https://github.com/turingou/wifi.io.git"
   },
-  "author": "turing",
-  "license": "MIT",
   "keywords": [
     "wifi.io",
     "wifi"

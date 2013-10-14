@@ -7,3 +7,5 @@ psd
 backup.*
 *.log
 sftp-*
+addons
+demo

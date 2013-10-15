@@ -8,7 +8,9 @@
 // @author: [turingou](http://guoyu.me)
 
 var sdk = require('sdk'),
-    apis = require('./apis');
+    apis = require('./apis'),
+    led = require('./modules/led'),
+    dht11 = require('./modules/dht11');
 
 var Wifi = function(params) {
     this.account = params;
@@ -28,5 +30,15 @@ Wifi.prototype.token = function(callback) {
         callback(err, result.body);
     })
 }
+
+// shotcut method to store device id
+Wifi.prototype.connect = function(id) {
+    if (id && typeof(id) == 'number') this.did = id;
+    return this;
+}
+
+// load modules
+Wifi.prototype.led = led;
+Wifi.prototype.dht11 = dht11;
 
 module.exports = Wifi;

@@ -10,7 +10,9 @@
 var sdk = require('sdk'),
     apis = require('./apis'),
     led = require('./modules/led'),
-    dht11 = require('./modules/dht11');
+    dht11 = require('./modules/dht11'),
+    rgb = require('./modules/rgb'),
+    camera = require('./modules/camera');
 
 var Wifi = function(params) {
     this.account = params;
@@ -40,5 +42,7 @@ Wifi.prototype.connect = function(id) {
 // load modules
 Wifi.prototype.led = led;
 Wifi.prototype.dht11 = dht11;
+Wifi.prototype.rgb = rgb;
+Wifi.prototype.camera = camera;
 
 module.exports = Wifi;

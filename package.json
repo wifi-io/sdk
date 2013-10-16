@@ -1,6 +1,6 @@
 {
   "name": "wifi",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "the sdk and package manager of wifi.io based on Node.js",
   "main": "index.js",
   "author": "turing",

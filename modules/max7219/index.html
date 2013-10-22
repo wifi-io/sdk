@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text.html; charset=UTF-8" http-equiv="Content-Type"/>
+<link href="/css/common.css" rel="stylesheet" media="screen">
+<link rel="icon" href="/img/favicon.ico" type="image/x-icon" >
+
+
+<style type="text/css">
+	
+	
+	/* So you can drag around (drawing) in the table without selection color annoyance */
+	/* Unfortunately didn't seem to work when applied ONLY to #drawing-table (at least in Firefox) */
+	::selection { background: transparent; }
+	::-moz-selection { background: transparent; }
+
+	#drawing-table { width: 500px; height: 500px; border-collapse: collapse; }
+	#drawing-table td { border: 1px dotted #ccc; }
+	
+	
+	.color { float: left; position: relative;  border: 3px solid #ccc; margin: 0 20px 40px 0; width: 50px; height: 50px; -moz-border-radius: 30px; -webkit-border-radius: 30px; border-radius: 30px; }
+	.red { background: red; }
+	.color input { position: absolute; top: 60px; left: 20px; width: 14px; height: 14px; background: url(../images/colordot.png) no-repeat; border: 0; }
+	
+	.selected { border: 3px solid black; }
+	
+	#table-wrap { position: relative; width: 500px; }
+	#table-wrap table { position: relative; z-index: 10; }
+	
+	#toggle-tracing-mode { display: none; }
+
+</style>
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<script src="/js/html5.js"></script>
+<![endif]-->
+</head>
+<body>
+<div id="top" class="navbar navbar-inverse">
+<div class="navbar-inner">
+<div class="container" style="width:960px;margin:0 auto;">
+<a class="brand" href="/index.html">W!F!.IO</a>
+<div class="nav-collapse">
+<ul class="nav">
+<li><a href="/index.html">首页</a></li>
+<li><a href="/setup.html">基础设置</a></li>
+<li class="active"><a href="/app/wifiIO/index.html">应用程序</a></li>
+<li><a href="/cloud.html">云服务</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div id="wrap" class="container">
+
+
+
+	<div class="alert alert-info">
+	<h1>MAX7219</h1>
+	<h4 style="margin:15px;">——通过网页点阵模块</h4>
+	</div>
+
+
+
+	<ul id="tab" class="nav nav-tabs">
+		<li class="active"><a href="#tab_pane_main" data-toggle="tab">应用主页</a></li>
+		<li><a href="#tab_pane_config" data-toggle="tab">参数设置</a></li>
+		<li><a href="#tab_pane_note" data-toggle="tab">使用说明</a></li>
+	</ul>
+
+	<div class="tab-content conf-box">
+
+
+		<div class="tab-pane fade active in" id="tab_pane_main">
+
+
+			<div class="form-horizontal well">
+				<h3>测试之前需要判断安装状态</h3>
+				<p>运行状态若为 loaded，那么可以进行相关测试。</p>
+				<dl class="dl-horizontal">
+					<dt>运行状态：</dt><dd id="status_run">未知状态</dd>
+				</dl>
+
+				<p style="text-align:center;">
+					<a class="btn btn-info" href="###" id="sys_status_action_update"><i class="icon-refresh icon-white"></i> 刷新</a>
+				</p>
+			</div>
+
+			<div class="form-horizontal well">
+				<h3>下方绘图可以映射到点阵上</h3>
+				<table id="drawing-table"><tr><td></td></tr></table>
+				<a class="btn btn-info" href="###" id="draw_sandbox_reset"><i class="icon-refresh icon-white"></i> 清空</a>
+				<p>
+					按住左侧ALT键是橡皮擦模式。按住左侧CTRL键是光标模式；
+				</p>
+			</div>
+
+
+
+
+		</div>
+
+		<div class="tab-pane fade" id="tab_pane_config">
+
+			<h3>本应用无配置</h3>
+
+			<div class="form-horizontal well">
+				<div class="control-group" id="cfg_text_xxx">
+		 	  	<label class="control-label">any</label>
+			  	<div class="controls">
+		 	  		<input type="text" class="input-small" placeholder="what ever" value="0">
+		 	  		<span class="help-inline"></span>
+		 			</div>
+				</div>
+			</div>
+
+			<p style="text-align:center;">
+				<a class="btn btn-info" href="###" id="sys_cfg_action_update"><i class="icon-refresh icon-white"></i> 读取配置</a>
+				<a class="btn btn-info" href="###" id="sys_cfg_action_save"><i class="icon-ok icon-white"></i> 保存配置</a>
+				<a class="btn btn-info" href="###" id="sys_cfg_action_reset"><i class="icon-off icon-white"></i> 复位系统</a>
+			</p>
+
+
+
+
+		</div>
+
+		<div class="tab-pane fade" id="tab_pane_note">
+			<div class="well">
+				<h4>MAX7219 之接口说明：</h4>
+				<h5>示例：{"method":"max7219.draw","params":"0123456789ABCDEF"}</h5>
+				<dl class="dl-horizontal">
+					<dt>命令字段</dt><dd>说明</dd>
+					<dt>params</dt><dd>8个字节的hex串</dd>
+					<dt>----</dt><dd>----</dd>
+				</dl>
+				<p><span class="label label-info">提示</span>&nbsp 8个字节依次表示8行，字节内容表示一行8个点，80表示第一个点亮。</p>
+
+			</div>
+
+			<div class="well">
+				<h4>引脚占用说明</h4>
+				<p>本应用使用了Pin3、Pin8、Pin7。</p>
+				<dl class="dl-horizontal">
+					<dt>Pin3(IOP01)：</dt><dd>时钟序列输入端。最大速率为10MHz.在时钟的上升沿，数据移入内部移位寄存器。只有当cs 端为低电平时时钟输入才有效。 </dd>
+					<dt>Pin8(IOP02)：</dt><dd>串行数据输入端口。在时钟上升沿时数据被载入内部的16位寄存器。</dd>
+					<dt>Pin7(IOP03)：</dt><dd>片选端。该端为低电平时串行数据被载入移位寄存器。连续数据的后16位在cs 端的上升沿时被锁定。</dd>
+				</dl>
+				<img src="/img/wifiIO_pin_map.png" alt="wifiIO pin map" title="wifiIO_pin_map" border="0">
+			</div>
+
+			<div class="well">
+				<h4>开发者</h4>
+				<p>详细请参考delegate接口设计。</p>
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+
+
+<div class="mini-tip" id="mini-tip"></div>
+<div id="shadow"></div>
+<div id="footer" class="footer">
+</div>
+
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="max7219.js"></script>
+
+</body>
+</html>

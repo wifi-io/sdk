@@ -46,29 +46,6 @@ wifi.token(function(err,result){
 
 可以使用类似上方那样的`token`这类快捷方法，也可以使用下方的API：
 
-与用户相关的API：
-````javascript
-// 登录
-wifi.user.signin({
-    body: {
-        username: '123',
-        password: '123'
-    }
-},function(err,result){
-    console.log(result);
-});
-
-// 登出
-wifi.user.signout({
-    body: {
-        token: 123
-    }
-},function(err,result){
-    // console.log result token
-    console.log(result) 
-});
-````
-
 与设备相关的API：
 
 ````javascript

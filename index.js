@@ -7,42 +7,4 @@
 // @brief: the sdk and package manager of wifi.io based on Node.js
 // @author: [turingou](http://guoyu.me)
 
-var sdk = require('sdk'),
-    apis = require('./apis'),
-    led = require('./modules/led'),
-    dht11 = require('./modules/dht11'),
-    rgb = require('./modules/rgb'),
-    camera = require('./modules/camera');
-
-var Wifi = function(params) {
-    this.account = params;
-    this.server = 'http://api.wifi.io';
-    Wifi.prototype.user = new sdk(apis.user, this);
-    Wifi.prototype.device = new sdk(apis.device, this);
-    Wifi.prototype.data = new sdk(apis.data, this);
-};
-
-// shotcut method to fetch token
-Wifi.prototype.token = function(callback) {
-    var self = this;
-    self.user.signin({
-        body: self.account
-    },function(err, result){
-        if (result.body && result.body.token && result.body.token != '') self.token = result.body.token;
-        callback(err, result.body);
-    })
-}
-
-// shotcut method to store device id
-Wifi.prototype.connect = function(id) {
-    if (id && typeof(id) == 'number') this.did = id;
-    return this;
-}
-
-// load modules
-Wifi.prototype.led = led;
-Wifi.prototype.dht11 = dht11;
-Wifi.prototype.rgb = rgb;
-Wifi.prototype.camera = camera;
-
-module.exports = Wifi;
+module.exports = require('./libs/wifi');
